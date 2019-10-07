@@ -117,8 +117,10 @@
                 <configuration>
                     <excludes>
                         <exclude>application.yml</exclude>
-                        <exclude>application-dev.yml</exclude>
+                        <exclude>application-active.yml</exclude>
+                        <exclude>application-common.yml</exclude>
                         <exclude>logback-spring.xml</exclude>
+                        <exclude>redis-config.properties</exclude>
                     </excludes>
                 </configuration>
             </plugin>

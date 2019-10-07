@@ -14,9 +14,9 @@ spring:
   # 数据库配置
   datasource:
     driverClassName: com.mysql.jdbc.Driver
-    url: jdbc:mysql://127.0.0.1:3300/framework_sample_starter?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/spring_cloud_demo?allowMultiQueries=true&useUnicode=true&characterEncoding=UTF-8&useSSL=false
     username: root
-    password: 123456
+    password: 111qqq
 
 zuul:
   ribbon-isolation-strategy: thread

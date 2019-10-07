@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #启动类
-MAIN_CLASS=com.weng.gateway.GatewayApplication
+MAIN_CLASS=com.weng.framework.cloud.GatewayApplication
 
 # root of the package
 PACKAGE_HOME=$(cd "$(dirname "$0")";cd ..;pwd)
