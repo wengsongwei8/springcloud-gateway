@@ -27,7 +27,7 @@
     ```
  特殊情况如果使用*，则把mirror中的mirrorOf属性改为：<mirrorOf>*,!my-maven-repo</mirrorOf>
    例如：
-   ```xml
+  ```xml
        		<mirror>
        			<id>aliyun</id>
        			<mirrorOf>*,!framework-repo</mirrorOf>
@@ -35,15 +35,14 @@
        			   <url>https://maven.aliyun.com/repository/jcenter</url>  
        		</mirror>
   
-    
-    因为
-    ```xml
-    <mirrorOf>*</mirrorOf>
-    ``` 
-    会覆盖掉所有的repository,导致项目中的repository不生效,所以需要以上配置
+``` 
+因为
+ ```xml
+   <mirrorOf>*</mirrorOf>
+``` 
+   会覆盖掉所有的repository,导致项目中的repository不生效,所以需要以上配置
  * 还原数据库【数据库备份脚本在deploy/db目录】
- * 在配置文件：application-dev.yml中修改数据库配置
- * 直接启动com.weng.framework.SampleApiStarterApplication类即可。
+ * 在配置文件：application-active.yml中修改数据库配置
  * 访问swagger-ui地址：http://127.0.0.1:8000/swagger-ui.html
  * 访问druid地址： http://127.0.0.1:8000/druid   admin/admin
 
@@ -71,6 +70,8 @@
     -Xbootclasspath/a:lombok.jar    --备注：如果没有这一行也是没问题的 <br/>
     -javaagent:lombok.jar
 
-
-
-
+* 执行./start.sh 会报以下错误：
+    bin/sh^M: bad interpreter: No such file or directory
+  
+    * 原因分析：.sh脚本在windows系统下用记事本文件编写的。不同系统的编码格式引起的。
+    * 解决方法：vi start.sh，然后输入:set ff=unix ，然后保存退出即可
