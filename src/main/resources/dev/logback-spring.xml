@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+    <!-- 应用名，输入真实应用名 -->
+    <Property name="APP_NAME" value="gateway"/>
+    <!-- 应用部署实例Id，用于区分集群部署的多实例的日志-->
+    <Property name="APP_INSTANCE_ID" value="1"/>
+    <!-- 日志输出格式：时间 [级别] [进程|线程] [类名.对应程序文件名:行号]-[应用名|微服务名 微服务应用ID实例信息] 日志信息 -->
+    <property name="LOG_PATTERN" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%-5level] [%thread] [%logger{60}:%L] [${APP_NAME}] [${APP_INSTANCE_ID}]  %message%n"/>
+    <property name="log_path" value="logs/"/>
+
+
+    <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${log_path}/${APP_NAME}.log</File>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${log_path}daily/${LOG_FILE}.%d{yyyy-MM-dd}.gz</fileNamePattern>
+            <maxHistory>30</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+    <!-- 控制台输出日志 -->
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>[%date{HH:mm:ss.SSS}] %X{logthreadId} %-5level %logger{80} %line - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!--指定具体路径的级别-->
+    <!--<logger name="com.weng" level="DEBUG"/>-->
+
+    <!--指定输出日志级别-->
+    <root level="INFO">
+        <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="FILE"/>
+    </root>
+</configuration>

@@ -1,0 +1,34 @@
+<assembly xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/assembly-1.0.0.xsd">  
+    <id>package</id>  
+    <formats>  
+        <format>zip</format>  
+    </formats>  
+    <includeBaseDirectory>true</includeBaseDirectory>  
+    <fileSets>  
+        <fileSet>  
+            <directory>deploy/bin</directory>
+            <outputDirectory>bin</outputDirectory>
+            <fileMode>0777</fileMode> <!--指定文件属性，使用八进制表达，分别为(User)(Group)(Other)所属属性，默认为 0644-->
+        </fileSet>
+        <fileSet>
+            <directory>src/main/resources/${env}</directory> <!-- 不同环境的打包，使用不同的配置文件 -->
+            <outputDirectory>conf</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>deploy/logs</directory>
+            <outputDirectory>logs</outputDirectory>
+        </fileSet>
+        <fileSet>
+            <directory>deploy/db</directory>
+            <outputDirectory>db</outputDirectory>
+        </fileSet>
+
+    </fileSets>
+    <dependencySets>  
+        <dependencySet>  
+            <outputDirectory>lib</outputDirectory>  
+            <scope>runtime</scope>  
+        </dependencySet>  
+    </dependencySets>  
+</assembly>

@@ -1,0 +1,87 @@
+spring:
+  profiles:
+    active: dev  # 依据你的配置文件名称而定。这里是 [dev | prod],怕里参数env指的是pom.xml中的profile
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      # 初始化时建立物理连接的个数
+      initial-size: 10
+      #最大连接池数量
+      max-active: 100
+      #最小连接池数量
+      min-idle: 10
+      #获取连接时最大等待时间
+      max-wait: 60000
+      #是否缓存preparedStatement，也就是PSCache。PSCache对支持游标的数据库性能提升巨大，比如说oracle。在mysql下建议关闭
+      pool-prepared-statements: false
+      #要启用PSCache，必须配置大于0，当大于0时，poolPreparedStatements自动触发修改为true。在Druid中，不会存在Oracle下PSCache占用内存过多的问题，可以把这个数值配置大一些，比如说100
+      max-pool-prepared-statement-per-connection-size: 20
+      time-between-eviction-runs-millis: 60000
+      min-evictable-idle-time-millis: 300000
+      #用来检测连接是否有效的sql，要求是一个查询语句，常用select 'x'。如果validationQuery为null，testOnBorrow、testOnReturn、testWhileIdle都不会起作用。
+      validation-query: SELECT 1 FROM DUAL
+      #建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+      test-while-idle: true
+      #申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+      test-on-borrow: false
+      #归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+      test-on-return: false
+      filter:
+        log-slow-sql: true
+        stat:
+          enabled: true #默认值为true，监控sql\慢sql等功能，我们建议修改为false，如果需要打开监控页面或者将慢sql输出到日志中，则修改为true。
+          merge-sql: true
+          log-slow-sql: true
+          slow-sql-millis: 1000
+        wall:
+          enabled: true #默认值为false，sql防火墙，支持过滤sql，如禁止使用delete *等操作。
+        slf4j:
+          enabled: true #指定使用slf4j日志组件，支持选择将各种操作过程输出到日志中。
+        log4j2:
+          enabled: false #指定使用log4j2日志组件，支持选择将各种操作过程输出到日志中。
+        log4j:
+          enabled: false #指定使用log4j日志组件，支持选择将各种操作过程输出到日志中。
+        commons-log:
+          enabled: false #指定使用commons-log日志组件，支持选择将各种操作过程输出到日志中。
+      stat-view-servlet:
+        enabled: true #默认值为true，即打开监控页面，但存在泄漏信息的风险，所以修改为false
+        login-username: admin #配置监控页面登录用户名，启用监控页面后才可用，建议业务方，重新定义，别使用我们的给定值
+        login-password: admin #配置监控页面登录密码，启用监控页面后才可用，建议业务方，重新定义，别使用我们的给定值
+        allow: 127.0.0.1 #配置允许访问监控页面的IP地址
+      web-stat-filter:
+        enabled: true #默认值为true，统计web关联的监控信息如session/url等，建议修改为false
+        session-stat-enable: false #该功能模块代码不完善，特定场景下会诱发异常，非特别需求，建议修改为false
+
+
+
+#mybatis-plus默认配置,具体配置请参考：https://mp.baomidou.com/config/
+mybatis-plus:
+  global-config:
+    #刷新mapper 调试神器
+    refresh: true
+    db-config:
+      #主键类型  0:"数据库ID自增:AUTO", 1:"用户输入ID:NONE",2:"全局唯一ID (数字类型唯一ID):INPUT", 3:"全局唯一ID UUID:ID_WORKER",4:该类型为未设置主键类型:UUID,5: "字符串全局唯一ID:ID_WORKER_STR";
+      id-type: ID_WORKER_STR
+      #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
+      field-strategy: not_empty
+      #驼峰下划线转换
+      column-underline: true
+      #数据库大写下划线转换
+      #capital-mode: true
+      #逻辑删除配置
+      logic-delete-value: 1
+      logic-not-delete-value: 0
+
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+
+
+
+#日志
+logging:
+  level: debug
+  level.com: debug
+  config: classpath:logback-spring.xml  #日志配置文件
+  path: ./logs/  #日志保存目录
+  file: application.log

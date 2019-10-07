@@ -1,0 +1,4 @@
+spring:
+  profiles:
+    #common表示不常变化的配置，active表示常变化的配置
+    include: common,active
