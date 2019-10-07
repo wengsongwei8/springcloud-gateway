@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # bootstrap class
-MAIN_CLASS=com.weng.framework.cloud.GatewayApplication
+MAIN_CLASS=com.weng.gateway.GatewayApplication
 
 # basename of the logfile.
 LOG_BASE_NAME=demonstrate
