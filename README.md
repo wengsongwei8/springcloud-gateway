@@ -49,7 +49,7 @@
    
 
 ##项目打包部署
-* 打包命令：mvn clean assembly:assembly -Pdev 其中dev指的是开发环境 
+* 打包命令：mvn clean assembly:assembly -Pdev 其中dev指的是开发环境,prod指的是生产环境,test指的是生产环境  
 * 执行完打包命令以后，将生成一个.zip部署包
 * 目录结构如下
     * bin启动和停止脚本
@@ -75,3 +75,7 @@
   
     * 原因分析：.sh脚本在windows系统下用记事本文件编写的。不同系统的编码格式引起的。
     * 解决方法：vi start.sh，然后输入:set ff=unix ，然后保存退出即可
+* 执行打包部署以后，然后再在idea或 eclipse启动项目，会报找不到数据库连接的错：
+  
+    * 原因分析：为了部署方便，在打包的时候避免把配置文件放在jar里，所以打包时会把配置方向往外放。所以在ide里启动就找不到对应的配置文件
+    * 解决方法：再执行命令mvn install即可
