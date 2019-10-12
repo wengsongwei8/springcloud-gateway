@@ -15,9 +15,10 @@ import java.util.List;
 public class DocumentationConfig implements SwaggerResourcesProvider {
     @Override
     public List<SwaggerResource> get() {
+        // 注意此处和网关routes中配置的映射关系相对应
         List<SwaggerResource> resources = new ArrayList<>();
-        resources.add(swaggerResource("示例API", "/api/v1/demo/v2/api-docs", "2.0"));
-        resources.add(swaggerResource("认证API", "/api/v1/auth/v2/api-docs", "2.0"));
+        resources.add(swaggerResource("示例API", "/api/user-center/v2/api-docs", "2.0"));
+        resources.add(swaggerResource("认证API", "/api/auth/v2/api-docs", "2.0"));
         return resources;
     }
 
